@@ -69,35 +69,35 @@
                 "    <span class='" + spanC$3$1 + "'>" +
                 "      <span class='" + spanC$4$1 + "'>所有订单</span>" +
                 "      <span class='" + spanC$4$2 + "'></span>" +
-                "      <span class='" + spanC$4$2 + "' style='font-size:0.4em;position:absolute;left:18px;bottom:0;'>[特价淘宝]</span>" +
+                "      <span class='" + spanC$4$2 + "' style='font-size:11px;position:absolute;left:18px;bottom:0;'>[特价淘宝]</span>" +
                 "    </span>" +
                 "  </div>" +
                 "  <div class='" + divC$2$1 + "' name='bill-waitPay'>" +
                 "    <span class='" + spanC$3$1 + "'>" +
                 "      <span class='" + spanC$4$1 + "'>待付款</span>" +
                 "      <span class='" + spanC$4$2 + "'></span>" +
-                "      <span class='" + spanC$4$2 + "' style='font-size:0.4em;position:absolute;left:11px;bottom:0;'>[特价淘宝]</span>" +
+                "      <span class='" + spanC$4$2 + "' style='font-size:11px;position:absolute;left:11px;bottom:0;'>[特价淘宝]</span>" +
                 "    </span>" +
                 "  </div>" +
                 "  <div class='" + divC$2$1 + "' name='bill-waitSend'>" +
                 "    <span class='" + spanC$3$1 + "'>" +
                 "      <span class='" + spanC$4$1 + "'>待发货</span>" +
                 "      <span class='" + spanC$4$2 + "'></span>" +
-                "      <span class='" + spanC$4$2 + "' style='font-size:0.4em;position:absolute;left:11px;bottom:0;'>[特价淘宝]</span>" +
+                "      <span class='" + spanC$4$2 + "' style='font-size:11px;position:absolute;left:11px;bottom:0;'>[特价淘宝]</span>" +
                 "    </span>" +
                 "  </div>" +
                 "  <div class='" + divC$2$1 + "' name='bill-waitConfirm'>" +
                 "    <span class='" + spanC$3$1 + "'>" +
                 "      <span class='" + spanC$4$1 + "'>待收货</span>" +
                 "      <span class='" + spanC$4$2 + "'></span>" +
-                "      <span class='" + spanC$4$2 + "' style='font-size:0.4em;position:absolute;left:11px;bottom:0;'>[特价淘宝]</span>" +
+                "      <span class='" + spanC$4$2 + "' style='font-size:11px;position:absolute;left:11px;bottom:0;'>[特价淘宝]</span>" +
                 "    </span>" +
                 "  </div>" +
                 "  <div class='" + divC$2$1 + "' name='bill-waitRate'>" +
                 "    <span class='" + spanC$3$1 + "'>" +
                 "      <span class='" + spanC$4$1 + "'>待评价</span>" +
                 "      <span class='" + spanC$4$2 + "'></span>" +
-                "      <span class='" + spanC$4$2 + "' style='font-size:0.4em;position:absolute;left:11px;bottom:0;'>[特价淘宝]</span>" +
+                "      <span class='" + spanC$4$2 + "' style='font-size:11px;position:absolute;left:11px;bottom:0;'>[特价淘宝]</span>" +
                 "    </span>" +
                 "  </div>" +
                 "</div>"
