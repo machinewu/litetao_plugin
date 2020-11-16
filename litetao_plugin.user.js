@@ -518,7 +518,7 @@
                                             $e.attr("style", $e.attr("style").replace(/padding-right:[^;]+/, "")).text(lastAddressItem.time.split(" ")[0]);
                                         }
 
-                                        if (logisticsData.address.length-3>=0 && logisticsData.address[logisticsData.address.length-2].time) {
+                                        if (logisticsData.address.length-3>=0 && logisticsData.address[logisticsData.address.length-2].time && $b.find("[name='litetao-plugin-op-confirmGood']").is(":visible")) {
                                             //默认收货时间是10天(快递是10天，平邮是30天，海外直邮是20天)
                                             var leaveTime = Math.max(0, new Date(logisticsData.address[logisticsData.address.length-2].time).getTime() + 10 * 86400 * 1000 - new Date().getTime());
 
@@ -545,6 +545,10 @@
                                     "</div>" +
 
                                 $oldLogistics.html(logisticsHTML);
+                                $oldLogistics.hover(function(){
+                                }, function(){
+                                    $oldLogistics.hide();
+                                });
                             },
                             error: function(responseData) {
                                 console.log("[ERROR] Ajax query fail: " + logisticsQueryURL + "\nresponse: " + JSON.stringify(responseData));
@@ -553,8 +557,6 @@
                         });
                     }
                 }, function() {
-                    var billId = (/trade_id=(\d+)/.exec($(this).attr('href')) || [null, null])[1];
-                    $("#litetao-plugin-viewLogistics-billId_" + billId).hide();
                 });
 
                 /*
