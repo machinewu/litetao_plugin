@@ -4,6 +4,7 @@
 // @description  特价淘宝订单插件PC版
 // @author       MachineWu
 // @namespace    https://github.com/machinewu/litetao_plugin
+// @exclude      https://buyertrade.taobao.com/trade/itemlist/list_bought_items.htm/_____tmd_____/*
 // @include      https://buyertrade.taobao.com/trade/itemlist/list_bought_items.htm*
 // @require      http://g.alicdn.com/ilw/cdnjs/jquery/2.1.4/jquery.min.js
 // @grant        GM_xmlhttpRequest
