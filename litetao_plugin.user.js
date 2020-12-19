@@ -15,6 +15,8 @@
 (function($) {
     'use strict';
 
+    addHideBillIdButton();
+
     var cssURL = $("link[href*='//g.alicdn.com/tp/bought/'][href$='/style.css']").eq(0).attr('href');
 
     if (!cssURL) {
@@ -1236,5 +1238,89 @@
         }
 
         createNavi();
+    }
+
+    function addHideBillIdButton() {
+        if ($('#litetao-plugin-button-css').length <= 0) {
+            $("head").append(
+                "<style id='litetao-plugin-button-css'>" +
+                ".litetao-plugin-button {" +
+                "    position:fixed;" +
+                "    top: 20px;" +
+                "    left: auto;" +
+                "    right: -100px;" +
+                "    z-index:2147483647;" +
+                "    display: inline-block;" +
+                "    border: 1px solid;" +
+                "    border-radius: 4px;" +
+                "    padding: 4px 12px;" +
+                "    overflow: hidden;" +
+                "    text-decoration: none;" +
+                "    text-indent: 0;" +
+                "    line-height: 20px;" +
+                "}" +
+                ".litetao-plugin-button-active {" +
+                "    border-color: #99D3F5;" +
+                "    color: #1E88C7;" +
+                "    background: #D0EEFF;" +
+                "}" +
+                ".litetao-plugin-button-inactive {" +
+                "    border-color: #F5D399;" +
+                "    color: #C7881E;" +
+                "    background: #FFEED0;" +
+                "}" +
+                ".litetao-plugin-button span {" +
+                "    display:inline;" +
+                "}" +
+                ".litetao-plugin-button input {" +
+                "    position: absolute;" +
+                "    font-size: 100px;" +
+                "    right: 0;" +
+                "    top: 0;" +
+                "    opacity: 0;" +
+                "}" +
+                ".litetao-plugin-button-active:hover {" +
+                "    right: 0;" +
+                "    background: #AADFFD;" +
+                "    border-color: #78C3F3;" +
+                "    color: #004974;" +
+                "    text-decoration: none;" +
+                "}" +
+                ".litetao-plugin-button-inactive:hover {" +
+                "    right: 0;" +
+                "    background: #FDDFAA;" +
+                "    border-color: #F3C378;" +
+                "    color: #744900;" +
+                "    text-decoration: none;" +
+                "}" +
+                "<style>");
+        }
+        $("body").append("<a id='litetao-plugin-hide-billId' href='javascript:void(0);' class='litetao-plugin-button litetao-plugin-button-active'><span>点击隐藏订单号</span><input type='button'></a>");
+
+
+        $('#litetao-plugin-hide-billId').bind('click', function(){
+            var $this = $(this);
+            if ($this.hasClass('litetao-plugin-button-active')) {
+                changeBillId('hide');
+                $this.toggleClass('litetao-plugin-button-active');
+                $this.toggleClass('litetao-plugin-button-inactive');
+                $this.children('span').text("点击显示订单号");
+            }
+            else {
+                changeBillId('show');
+                $this.toggleClass('litetao-plugin-button-active');
+                $this.toggleClass('litetao-plugin-button-inactive');
+                $this.children('span').text("点击隐藏订单号");
+            }
+            
+        });
+
+        function changeBillId(operation) {
+            $('tbody').filter(function() {
+                return /bought-wrapper-mod__head/.test($(this).attr('class'))
+            }).find('td').filter(function() {
+                return /bought-wrapper-mod__head-info-cell/.test($(this).attr('class'))
+            }).children('span:nth-of-type(1)')[operation]();
+        }
     }
 })(jQuery.noConflict());
