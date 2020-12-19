@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         特价淘宝订单插件PC版
-// @version      0.1
+// @version      0.2
 // @description  特价淘宝订单插件PC版
 // @author       MachineWu
 // @namespace    https://github.com/machinewu/litetao_plugin
@@ -440,6 +440,34 @@
                 $("div.litetao-plugin-tab>div." + cssClass("tabs-mod__selected") + ">span>span." + cssClass("nav-mod__count")).eq(0).text(pageInfo.totalNumber || "");
 
                 $("#tp-bought-root>div.js-actions-row-top").after(jsonDataToHTML(data));
+
+                $('[litetaoPluginDeleteBillId]').bind("click", function(event) {
+                    if (window.confirm("您确定要删除该订单吗？\n\n删除后，因为特价淘宝订单被PC版隐藏的原因，您在订单回收站可能会找不到此删除的订单。")) {
+                        var $this = $(this);
+                        var billId = $this.attr('litetaoPluginDeleteBillId');
+                        if (!!billId) {
+                            var deleteBillURL = "https://buyertrade.taobao.com/trade/itemlist/asyncBought.htm?action=itemlist/RecyleAction&event_submit_do_delete=1&_input_charset=utf8&isArchive=false&order_ids=" + billId;
+                            $.ajax({
+                                url: deleteBillURL,
+                                type: "POST",
+                                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                                global: false,
+                                processData: false,
+                                success: function(data) {
+                                    $this.parentsUntil(".js-order-container").last().parent().hide();
+                                },
+                                error: function(responseData) {
+                                    console.log("[ERROR] Ajax delete bill fail: " + deleteBillURL + "\nresponse: " + JSON.stringify(responseData));
+                                    alert("删除订单失败！");
+                                }
+                            });
+                        }
+                        else {
+                            alert("删除订单失败！");
+                        }
+                    }
+                    event.stopPropagation();
+                });
 
                 $("#tp-bought-root [name='litetao-plugin-viewLogistics']").hover(function(){
                     var $this = $(this);
@@ -919,7 +947,7 @@
                     "  <a id='flag' title='编辑标记信息，仅自己可见' target='_blank' rel='noopener noreferrer' class='" + cssClass("bought-wrapper-mod__th-operation") + "' href='" + htmlEncode(markURL) + "'>" +
                     "    <i style='height:17px;width:1px;padding-left:17px;overflow:hidden;vertical-align:middle;font-size:0px;display:inline-block;background:url(//img.alicdn.com/tps/i1/TB1heyGFVXXXXXpXXXXR3Ey7pXX-550-260.png) no-repeat " + (finishedBillFlag ? "-176px": "-30px") + " -176px;'></i>" +
                     "  </a>" +
-                    "  <a href='javascript:void(0);' id='delOrder' title='删除订单' target='_blank' rel='noopener noreferrer' class='always-visible " + cssClass("bought-wrapper-mod__th-operation") + "' " + (billData.operatorList.indexOf("delOrder") > -1 ? "" : "style='display:none;'") + ">" +
+                    "  <a litetaoPluginDeleteBillId='" + billData.billId + "' href='javascript:void(0);' id='delOrder' title='删除订单' rel='noopener noreferrer' class='always-visible " + cssClass("bought-wrapper-mod__th-operation") + "' " + (billData.operatorList.indexOf("delOrder") > -1 ? "" : "style='display:none;'") + ">" +
                     "    <i style='height:17px;width:1px;padding-left:17px;overflow:hidden;vertical-align:middle;font-size:0px;display:inline-block;visibility:visible;background:url(//img.alicdn.com/tps/i1/TB1heyGFVXXXXXpXXXXR3Ey7pXX-550-260.png) no-repeat -239px -176px;'></i>" +
                     "  </a>" +
                     "</td>";
@@ -979,7 +1007,7 @@
                             "      <div class='" + cssClass("ml-mod__media") + "' style='width:0px;'></div>" +
                             "      <div style='margin-left:0px;'>" +
                             "        <p>" +
-                            "          <a target='_blank' rel='noopener noreferrer' href='" + (itemData.title == "保险服务" ? htmlEncode(insuranceServiceURL): "javascript:void(0);") + "'>" +
+                            "          <a rel='noopener noreferrer' href='" + (itemData.title == "保险服务" ? htmlEncode(insuranceServiceURL): "javascript:void(0);") + "'>" +
                             "            <span> </span>" +
                             "            <span style='line-height:16px;'>" + itemData.title + "</span>" +
                             "            <span> </span>" +
