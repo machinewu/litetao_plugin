@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         特价淘宝订单插件PC版
-// @version      0.2
+// @version      0.3
 // @description  特价淘宝订单插件PC版
 // @author       MachineWu
 // @namespace    https://github.com/machinewu/litetao_plugin
@@ -143,7 +143,8 @@
                                 "tabCode": "all",
                                 "appVersion": "1.0",
                                 "appName":"ltao", //"tborder" for PC
-                                "fromGroup":"-1"
+                                "fromGroup":"-1",
+                                "requestIdentity": "#t#ip##_h5_web_litetao"
                             };
 
                             queryResult(queryData);
@@ -160,7 +161,8 @@
                         "appName": "ltao", //"tborder" for PC
                         "fromGroup": "-1",
                         "page": 1,
-                        "appVersion": "1.0"
+                        "appVersion": "1.0",
+                        "requestIdentity": "#t#ip##_h5_web_litetao"
                     });
                 }
                 else {
@@ -192,7 +194,7 @@
 
                             //删除jsonp全局回调函数并清空全局存储
                             var responseData = document.jsonpData[jsonpCallback];
-                            //delete document.jsonpData[jsonpCallback];
+                            delete document.jsonpData[jsonpCallback];
                             $("#" + jsonpCallback).remove();
 
                             callbackFunc(responseData);
@@ -399,10 +401,12 @@
                     return b ? b[1] : void 0
                 }
 
-                if (k(x)) {
-                    return k(x).split(";")[0].split("_")[0];
-                }
-                else if (k(y)) {
+                // if failure too many times(var CDR), then use k(x)
+                //if (k(x)) {
+                //    return k(x).split(";")[0].split("_")[0];
+                //}
+                //else
+                if (k(y)) {
                     return k(y).split("_")[0];
                 }
                 else {
@@ -591,7 +595,7 @@
                 });
 
                 /*
-                // 独立请求填充订单呢日期和确认收货剩余时间
+                // 独立请求填充订单日期和确认收货剩余时间
                 // 由于请求量大会被淘宝ban，所以不请求了
                 $("div." + cssClass("index-mod__order-container")).each(function() {
                     var $this = $(this);
@@ -1312,7 +1316,7 @@
                 $this.toggleClass('litetao-plugin-button-inactive');
                 $this.children('span').text("点击隐藏订单号");
             }
-            
+
         });
 
         function changeBillId(operation) {
